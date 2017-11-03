@@ -7,6 +7,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <random>
 #include <vector>
 
 #include <origin/sequence/algorithm.hpp>

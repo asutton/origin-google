@@ -356,8 +356,6 @@ namespace testing
   template <typename T>
     struct weakly_ordered<T, T>
     {
-      static_assert(Weakly_ordered<T>(), "");
-
       template <typename Tv>
         void operator()(Tv&& tvar) const
         {

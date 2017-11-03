@@ -147,8 +147,10 @@ namespace origin
     inline std::size_t
     multi_edge_handle<E>::hash() const
     {
-      // FIXME: Stop using GCC internal functions for hashing.
-      return std::_Hash_bytes(&value, sizeof(value), 0);
+      std::size_t seed = std::get<0>(value).hash();
+      seed ^= std::get<1>(value).hash() + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+      seed ^= std::get<2>(value).hash() + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+      return seed;
     }
 
   // Equality

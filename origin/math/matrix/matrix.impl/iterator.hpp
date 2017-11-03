@@ -30,7 +30,7 @@ template <typename T, std::size_t N>
     slice_iterator(const matrix_slice<N>& s, T* base, bool limit = false);
 
     // Returns the iterators describing slice.
-    const matrix_slice<N>& descriptor() const { return desc; }
+    const matrix_slice<N>& descriptor() const { return *desc; }
 
     // Readable
     T& operator*() const { return *ptr; }
@@ -44,9 +44,9 @@ template <typename T, std::size_t N>
     void increment();
 
   private:
-    const matrix_slice<N>& desc; // Describes the iterator range
-    std::size_t indexes[N];       // Counting indexes
-    T* ptr;                       // The current element
+    const matrix_slice<N>* desc; // Describes the iterator range
+    std::size_t indexes[N];      // Counting indexes
+    T* ptr;                      // The current element
   };
 
 
@@ -54,12 +54,12 @@ template <typename T, std::size_t N>
   slice_iterator<T, N>::slice_iterator(const matrix_slice<N>& s, 
                                        T* base, 
                                        bool limit)
-    : desc(s)
+    : desc(&s)
   {
     std::fill_n(indexes, N, 0);
     if (limit) {
-      indexes[0] = desc.extents[0];
-      ptr = base + desc.offset(indexes);
+      indexes[0] = desc->extents[0];
+      ptr = base + desc->offset(indexes);
     } else {
       ptr = base + s.start;
     }
@@ -90,19 +90,19 @@ template <typename T, std::size_t N>
   {
     std::size_t d = N - 1;
     while (true) {
-      ptr += desc.strides[d];
+      ptr += desc->strides[d];
       ++indexes[d];
 
       // If have not yet counted to the extent of the current dimension, then
       // we will continue to do so in the next iteration.
-      if (indexes[d] != desc.extents[d])
+      if (indexes[d] != desc->extents[d])
         break;
 
       // Otherwise, if we have not counted to the extent in the outermost
       // dimension, move to the next dimension and try again. If d is 0, then
       // we have counted through the entire slice.
       if (d != 0) {
-        ptr -= desc.strides[d] * desc.extents[d];
+        ptr -= desc->strides[d] * desc->extents[d];
         indexes[d] = 0;
         --d;
       } else {

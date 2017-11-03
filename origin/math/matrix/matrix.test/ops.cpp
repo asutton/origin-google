@@ -14,8 +14,10 @@ template <typename M1, typename M2>
 Common_type<Value_type<M1>, Value_type<M2>>
 dot_product(const M1& a, const M2& b)
 {
-  static_assert(a.order == 1, "");
-  static_assert(b.order == 1, "");
+  assert(a.order == 1);
+  assert(b.order == 1);
+  // static_assert(a.order == 1, "");
+  // static_assert(b.order == 1, "");
   assert(a.size() == b.size());
   return inner_product(a.begin(), a.end(), b.begin(), size_t(0));
 }

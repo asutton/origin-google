@@ -17,16 +17,16 @@ using namespace origin;
 struct fail_t { };
 
 void f0()          { }
-int  f1(int)       { }
-char f2(int, char) { }
+int  f1(int)       { return {}; }
+char f2(int, char) { return {}; }
 
 // Used for testing Codomain.
 int global__ = 0;
 const int& func(int, int) { return global__; }
 
 struct Functor0 { void operator()() const          { } };
-struct Functor1 { int  operator()(int) const       { } };
-struct Functor2 { char operator()(int, char) const { } };
+struct Functor1 { int  operator()(int) const       { return {}; } };
+struct Functor2 { char operator()(int, char) const { return {}; } };
 
 // A helper for differentiating result types.
 template <int N>
@@ -34,14 +34,14 @@ template <int N>
 
 struct s 
 {
-  type<0> f0()       { }
-  type<1> f0() const { }
+  type<0> f0()       { return {}; }
+  type<1> f0() const { return {}; }
   
-  type<2> f1(int)       { }
-  type<3> f1(int) const { }
+  type<2> f1(int)       { return {}; }
+  type<3> f1(int) const { return {}; }
   
-  type<4> f2(int, char)       { }
-  type<5> f2(int, char) const { }
+  type<4> f2(int, char)       { return {}; }
+  type<5> f2(int, char) const { return {}; }
 
   int g() { return 0; }
 };

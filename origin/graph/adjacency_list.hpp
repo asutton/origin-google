@@ -593,7 +593,7 @@ namespace origin
       directed_adjacency_list<V, E>::unlink_first_edge(S& seq, P pred)
       {
         auto i = find_if(seq, pred);
-        if (i != seq.end());
+        if (i != seq.end())
           remove_edge(*i);
       }
 

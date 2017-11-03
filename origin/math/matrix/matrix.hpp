@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <array>
 #include <numeric>
+#include <vector>
 
 #include <origin/type/concepts.hpp>
 #include <origin/type/typestr.hpp>

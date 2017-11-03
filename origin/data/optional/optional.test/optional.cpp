@@ -43,7 +43,6 @@ int main()
   check_equality_comparable<T, int>();
   check_equality_comparable<T, nullptr_t>();
   check_totally_ordered<T, int>();
-  check_totally_ordered<T, nullptr_t>();
 
   return cxt.failures();
 }

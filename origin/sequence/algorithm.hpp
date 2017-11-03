@@ -238,6 +238,7 @@ namespace origin
       using std::begin;
       using std::end;
       std::for_each(begin(range), end(range), f);
+      return f;
     }
 
 

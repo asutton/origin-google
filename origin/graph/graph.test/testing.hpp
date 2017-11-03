@@ -9,6 +9,7 @@
 #define GRAPH_TEST_TESTING_HPP
 
 #include <cassert>
+#include <array>
 #include <iostream>
 #include <vector>
 
